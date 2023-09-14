@@ -1,0 +1,20 @@
+---
+- name: Test Playbook
+  hosts: localhost
+  tasks:
+    - name: Dynamically add new hosts
+      ansible.builtin.add_host:
+        name: "{{ item }}"
+        groups: localhost
+      with_sequence: start=11 end=21  
+
+    - name: Show a message 
+      ansible.builtin.debug:
+        msg: "This is a test message"
+
+- name: New step 
+  hosts: localhost  # Use previously created hosts
+  tasks:
+    - name: Task for new hosts
+      ansible.builtin.debug:
+        msg: "You will never see this message!"
